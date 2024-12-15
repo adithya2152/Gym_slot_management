@@ -1,0 +1,81 @@
+
+
+  /* First Section */
+  .first-section {
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    text-align: center;
+    padding: 100px 0;
+  }
+  
+  .first-section h1 {
+    font-size: 4rem;
+    margin-bottom: 20px;
+  }
+  
+  .first-section p {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1.5em ;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+  }
+  .button:hover
+  {
+    background-color: #0069d9;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Other Sections */
+  section {
+    padding: 50px;
+    text-align: center;
+  }
+  
+  .sign
+  {
+    display: flex;
+    flex-direction: row;
+    justify-content:center;
+    border-bottom: 3px solid  #222;
+  }
+  
+  section h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+    h2 
+  {
+    padding: 10px;
+    margin:20px;
+  }
+  /* Footer */
+  footer {
+    background-color: #222;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  /* Responsive Design (Optional) */
+  @media (max-width: 768px) {
+    /* Adjust styles for smaller screens */
+    .first-section h1 {
+      font-size: 3rem;
+    }
+  
+    .first-section p {
+      font-size: 1.2rem;
+    }
+  }
