@@ -1,267 +1,242 @@
 "use client";
-
 import { useState } from "react";
-import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import axios from "axios";
 import bcrypt from "bcryptjs";
 import { useRouter } from "next/navigation";
- 
-
-type Credentials = {
-    username: string;
-    email: string;
-    age: string;
-    weight: string;
-    height: string;
-};
-
 export default function Register() {
-    const [credentials, setCredentials] = useState<Credentials>({
-        username: "",
-        email: "",
-        age: "",
-        weight: "",
-        height: "",
-    });
-    const [password, setPassword] = useState<string>("");
-    const [confPassword, setConfPassword] = useState<string>("");
-    const [otp, setOtp] = useState<string>("");
-    const [genOtp, setGenOtp] = useState<string>("");
-    const [isSent, setIsSent] = useState<boolean>(false);
-    const [isVerified, setIsVerified] = useState<boolean>(false);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const router = useRouter();
+  const [credentials, setcredentials] = useState({
+    username: "",
+    age: "",
+    weight: "",
+    email: "",
+    height: "",
+  });
 
-    function validateEmail(email: string): boolean {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
+  const [password, setpassword] = useState("");
+  const [conf_pass, setConfPass] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [isOtpSent, setIsOtpSent] = useState(false);
+  const [isOtpVerified, setIsOtpVerified] = useState(false);
+  const [genotp, setgenotp] = useState("");
+  const router = useRouter();
+  function validateEmail(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
+  const genOtp = async () => {
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    const hash = await bcrypt.hash(otp, 10);
+    setgenotp(hash);
+    return { otp, hash };
+  };
+
+  const handleVerify = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setLoading(true);
+
+    if (!validateEmail) {
+      toast.error("Invalid Email");
+      setLoading(false);
     }
 
-    async function generateOtp(): Promise<{ otp: string; hashedOtp: string }> {
-        const otp = Math.floor(100000 + Math.random() * 900000).toString();
-        const salt = 10;
-        const hashedOtp = await bcrypt.hash(otp, salt);
-        setGenOtp(hashedOtp);
-        return { otp, hashedOtp };
+    const { otp } = await genOtp();
+    try {
+      const res = await axios.post("/api/sendmail", {
+        email: credentials.email,
+        otp: otp,
+      });
+
+      if (res.status === 200) {
+        setIsOtpSent(true);
+        toast.success("Otp sent successfully");
+      } else {
+        throw new Error(res.data.error || "Unknown error");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to send mail");
+      setIsOtpSent(true);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleVerifyOtp = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const match = await bcrypt.compare(otp, genotp);
+
+    if (match) {
+      toast.success("Verified Otp successfully");
+      setIsOtpVerified(true);
+    } else {
+      toast.error("Invalid Otp");
+    }
+  };
+
+  const handleRegister = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    if (password != conf_pass) {
+      toast.error("password do not match");
+      return;
     }
 
-    const handleVerify = async (e: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
-        e.preventDefault();
-        setIsLoading(true);
-
-        if (!validateEmail(credentials.email)) {
-            toast.error("Invalid email format");
-            setIsLoading(false);
-            return;
+    setLoading(true);
+    try {
+      const res = await axios.post(
+        "/api/auth/signup",
+        {
+          credentials,  
+          password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
+      );
 
-        const { otp } = await generateOtp();
+      if (res.status === 201) {
+        toast.success("Registered Successfully");
+        router.push("/memberhome");
+      } else {
+        throw new Error(res.data.error || "Unknown error");
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log(error);
+        toast.error(error.response?.data?.message || "An error occurred");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
-        try {
-            const response = await axios.post("/api/sendmail", {
-                email: credentials.email,
-                otp,
-            });
+  const isRegisterDisabled = !(
+    credentials.username && 
+    credentials.age &&
+    credentials.weight &&
+    credentials.height &&
+    isOtpVerified &&
+    password &&
+    conf_pass
+);
 
-            if (response.status === 200) {
-                setIsSent(true);
-                toast.success("OTP sent successfully");
-            } else {
-                throw new Error(response.data.error || "Unknown error");
-            }
-        } catch (error) {
-            console.error("Error sending OTP:", error);
-            toast.error("Failed to send OTP");
-            setIsSent(false);
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
-    const handleConfirm = async (e: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
-        e.preventDefault();
-
-        const match = await bcrypt.compare(otp, genOtp);
-        if (match) {
-            toast.success("OTP verified successfully");
-            setIsVerified(true);
-        } else {
-            toast.error("Invalid OTP");
-            resetForm();
-        }
-    };
-
-    const handleRegister = async (e: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
-        e.preventDefault();
-
-        if (password !== confPassword) {
-            toast.error("Passwords do not match");
-            return;
-        }
-
-        setIsLoading(true);
-        try {
-            const salt = 10;
-            const hashedPassword = await bcrypt.hash(password, salt);
-
-            const response = await axios.post(
-                "/api/auth/signup",
-                { credentials, password: hashedPassword },
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
-
-            if (response.status === 201) {
-                toast.success("User registered successfully");
-                router.push("/memberhome");
-            } else {
-                throw new Error(response.data.message || "Unknown error");
-            }
-        } catch (err) {
-          if (axios.isAxiosError(err)) {
-            console.log(err);
-            toast.error(err.response?.data?.message || "An error occurred");
+  return (
+    <div>
+      <h1>Register</h1>
+      {loading && <p>Loading .../</p>}
+      <form>
+        <label htmlFor="username">Username</label>
+        <input
+          type="text"
+          name="username"
+          value={credentials.username}
+          onChange={(e) =>
+            setcredentials({ ...credentials, username: e.target.value })
           }
-        } finally {
-            setIsLoading(false);
-        }
-    };
+          required
+        />
 
-    const resetForm = (): void => {
-        setCredentials({ username: "", email: "", age: "", weight: "", height: "" });
-        setOtp("");
-        setGenOtp("");
-        setIsSent(false);
-        setIsVerified(false);
-        setPassword("");
-        setConfPassword("");
-    };
+        <label htmlFor="age">Age</label>
+        <input
+          type="number"
+          name="age"
+          value={credentials.age}
+          onChange={(e) =>
+            setcredentials({ ...credentials, age: e.target.value })
+          }
+          required
+        />
 
-    const isRegisterDisabled = !(
-        credentials.username &&
-        credentials.email &&
-        credentials.age &&
-        credentials.weight &&
-        credentials.height &&
-        isVerified &&
-        password &&
-        confPassword
-    );
+        <label htmlFor="weight"> Weight</label>
+        <input
+          type="number"
+          name="weight"
+          value={credentials.weight}
+          onChange={(e) =>
+            setcredentials({ ...credentials, weight: e.target.value })
+          }
+          required
+        />
 
-    return (
-        <div className="register-container">
-            {isLoading && <p>Loading...</p>}
-            <form>
-                <h1>Register</h1>
-                <label htmlFor="username">Username</label>
-                <input
-                    type="text"
-                    name="username"
-                    value={credentials.username}
-                    onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
-                    required
-                />
+        <label htmlFor="height">Height</label>
+        <input
+          type="text"
+          name="height"
+          value={credentials.height}
+          onChange={(e) =>
+            setcredentials({ ...credentials, height: e.target.value })
+          }
+          required
+        />
 
-                <label htmlFor="age">Age</label>
-                <input
-                    type="number"
-                    name="age"
-                    value={credentials.age}
-                    onChange={(e) => setCredentials({ ...credentials, age: e.target.value })}
-                    required
-                />
-
-                <label htmlFor="weight">Weight</label>
-                <input
-                    type="number"
-                    name="weight"
-                    value={credentials.weight}
-                    onChange={(e) => setCredentials({ ...credentials, weight: e.target.value })}
-                    required
-                />
-
-                <label htmlFor="height">Height</label>
-                <input
-                    type="number"
-                    name="height"
-                    value={credentials.height}
-                    onChange={(e) => setCredentials({ ...credentials, height: e.target.value })}
-                    required
-                />
-
-                <label htmlFor="email">Email</label>
-                <div className="email">
-                    <input
-                        type="email"
-                        name="email"
-                        value={credentials.email}
-                        onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
-                        required
-                    />
-                    <button disabled={!credentials.email} onClick={handleVerify} type="button">
-                        {isSent ? "Resend" : "Send OTP"}
-                    </button>
-                </div>
-
-                {isSent && (
-                    <div>
-                        <label htmlFor="otp">OTP</label>
-                        <div>
-                            <input
-                                type="text"
-                                name="otp"
-                                value={otp}
-                                onChange={(e) => setOtp(e.target.value)}
-                                placeholder="Enter OTP"
-                                required
-                            />
-                            <button disabled={!otp} onClick={handleConfirm} type="button">
-                                Verify
-                            </button>
-                        </div>
-                    </div>
-                )}
-
-                {isVerified && (
-                    <div>
-                        <label htmlFor="password">Password</label>
-                        <input
-                            type="password"
-                            name="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            placeholder="Enter password"
-                            required
-                        />
-
-                        <label htmlFor="confPassword">Confirm Password</label>
-                        <input
-                            type="password"
-                            name="confPassword"
-                            value={confPassword}
-                            onChange={(e) => setConfPassword(e.target.value)}
-                            placeholder="Confirm password"
-                            required
-                        />
-
-                        <button
-                            disabled={isRegisterDisabled}
-                            onClick={handleRegister}
-                            type="button"
-                        >
-                            Register
-                        </button>
-                    </div>
-                )}
-
-                <p>
-                    Already have an account? <a href="/login">Login</a>
-                </p>
-            </form>
-            <Toaster />
+        <label htmlFor="email">Email</label>
+        <div>
+          <input
+            type="text"
+            name="email"
+            value={credentials.email}
+            onChange={(e) =>
+              setcredentials({ ...credentials, email: e.target.value })
+            }
+            required
+          />
+          <button disabled={!credentials.email} onClick={handleVerify}>
+            {!isOtpSent ? "Send Otp" : "Resend"}
+          </button>
         </div>
-    );
+
+        {isOtpSent && (
+          <div>
+            <label htmlFor="otp">Otp</label>
+            <input
+              type="number"
+              name="otp"
+              value={otp}
+              onChange={(e) => setOtp(e.target.value)}
+            />
+            <button disabled={!otp} onClick={handleVerifyOtp}>
+              Verify
+            </button>
+          </div>
+        )}
+
+        {isOtpVerified && (
+          <div>
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              name="password"
+              value={password}
+              onChange={(e) => setpassword(e.target.value)}
+              required
+            />
+
+            <label htmlFor="conf_pass">Confirm Password</label>
+            <input
+              type="password"
+              name="conf_pass"
+              value={conf_pass}
+              onChange={(e) => setConfPass(e.target.value)}
+              required
+            />
+
+            <button disabled={isRegisterDisabled} onClick={handleRegister}>
+              Register
+            </button>
+          </div>
+        )}
+
+        <p>
+            Already have an account? <a href="/login">Login</a>
+
+        </p>
+      </form>
+      <Toaster />
+    </div>
+  );
 }

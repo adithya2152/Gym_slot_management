@@ -46,7 +46,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json(
       { message: "Signup successful! " },
-      { status: 200 }
+      { status: 201 }
     );
   } catch (err) {
     console.error("Error in POST /api/auth/signup:", err);
