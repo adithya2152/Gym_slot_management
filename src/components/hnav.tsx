@@ -1,82 +1,76 @@
 "use client";
 import Link from "next/link";
-import {useState} from "react"
+import { useState } from "react";
 import "../styles/nav.css";
 
 type StyleProps = {
-    style: string;
-    onSelect:(muscle:string)=>void
+  style: string;
+  onSelect?: (muscle: string) => void; // Optional prop
 };
 
 export default function Hnav(props: StyleProps) {
+  const [selectedMuscle, setSelectedMuscle] = useState("");
 
-    const [selectedMuscle, setSelectedMuscle] = useState("");
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedValue = e.target.value;
+    setSelectedMuscle(selectedValue);
 
-    const handleChange = (e:React.ChangeEvent<HTMLSelectElement>)=>
-    {
-        const  SelectedMuscle = e.target.value      
-        setSelectedMuscle(SelectedMuscle);  
-        props.onSelect(selectedMuscle)
-
+    // Call onSelect if it is provided
+    if (props.onSelect) {
+      props.onSelect(selectedValue);
     }
-    return (
-        <div>
-            <nav>
-                {props.style === "exercise" ? (
-                    <>
-                        <div className="nav-left">
-                            <Link className="header" href="/home">
-                                <h1>Gymsync</h1>
-                            </Link>
-                        </div>
+  };
 
-                        <div className="nav-center">
-                            <Link className="exercises" href="/exercises">
-                                Exercises
-                            </Link>
-                        </div>
+  return (
+    <div>
+      <nav>
+        {props.style === "exercise" ? (
+          <>
+            <div className="nav-left">
+              <Link className="header" href="/home">
+                <h1>GymSync</h1>
+              </Link>
+            </div>
 
-                        <div className="nav-right">
-                            <select className="dropdown" value={selectedMuscle} onChange={handleChange}>
-                                <option value="" disabled>
-                                    Select Muscle Type
-                                </option>
-                                <option value="Any">Show All</option>
-                                <option value="abdominals">abdominals</option>
-                                <option value="abductors">abductors</option>
-                                <option value="adductors">adductors</option>
-                                <option value="babicepsck">biceps</option>
-                                <option value="calves">calves</option>
-                                <option value="chest">chest</option>
-                                <option value="forearms">forearms</option>
-                                <option value="glutes">glutes</option>
-                                <option value="hamstrings">hamstrings</option>
-                                <option value="lats">lats</option>
-                                <option value="lower_back">lower_back</option>
-                                <option value="middle_back">middle_back</option>
-                                <option value="neck">neck</option>
-                                <option value="quadriceps">quadriceps</option>
-                                <option value="traps">traps</option>
-                                <option value="triceps">triceps</option>
+            <div className="nav-center">
+              <Link className="exercises" href="/exercises">
+                Exercises
+              </Link>
+            </div>
 
-                            </select>
-                        </div>
-                    </> 
-                ) : (
-                    <>
-                        <div className="nav-left">
-                            <Link className="header" href="/home">
-                                <h1>Gymsync</h1>
-                            </Link>
-                        </div>
-                        <div className="nav-right">
-                            <Link href="/AdminLogin" className="login">
-                                Admin Login
-                            </Link>
-                        </div>
-                    </>
-                )}
-            </nav>
-        </div>
-    );
+            <div className="nav-right">
+              <select
+                className="dropdown"
+                defaultValue=""
+                value={selectedMuscle}
+                onChange={handleChange} // Attach only if onSelect is passed
+              >
+                <option value="" disabled>
+                  Select Muscle Type
+                </option>
+                <option value="Any">Show All</option>
+                <option value="biceps">Biceps</option>
+                <option value="chest">Chest</option>
+                <option value="legs">Legs</option>
+                <option value="back">Back</option>
+              </select>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="nav-left">
+              <Link className="header" href="/home">
+                <h1>GymSync</h1>
+              </Link>
+            </div>
+            <div className="nav-right">
+              <Link href="/AdminLogin" className="login">
+                Admin Login
+              </Link>
+            </div>
+          </>
+        )}
+      </nav>
+    </div>
+  );
 }

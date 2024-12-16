@@ -5,7 +5,7 @@ import "../styles/main.css";
 export default function Home() {
   return (
     <div>
-      <Hnav style ="main"/>
+      <Hnav style ="main" />
       <section className="first-section">
         <h1>Welcome to GymSync</h1>
         <p>
