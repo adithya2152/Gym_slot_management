@@ -215,7 +215,7 @@ export default function Register() {
               onChange={(e) => setpassword(e.target.value)}
               required
             />
-
+            
             <label htmlFor="conf_pass">Confirm Password</label>
             <input
               type="password"
@@ -232,7 +232,7 @@ export default function Register() {
         )}
 
         <p>
-            Already have an account? <a href="/login">Login</a>
+            Already have an account? <a href="/member/login">Login</a>
 
         </p>
       </form>

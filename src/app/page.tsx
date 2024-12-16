@@ -21,9 +21,9 @@ export default function Home() {
       <div className="sign">
         <section className="member-section">
           <h2>I am a Member</h2>
-          <Link className="button" href={"/member/register"}>Member Login</Link>
+          <Link className="button" href={"/member/login"}>Member Login</Link>
         </section>
-        
+
 
         <section className="trainer-section">
           <h2>I am a Trainer</h2>
@@ -33,7 +33,7 @@ export default function Home() {
 
       <section className="signup-section">
         <h2>New User?</h2>
-        <Link className="button" href={"/signup"}>Sign Up</Link>
+        <Link className="button" href={"/member/register"}>Sign Up</Link>
       </section>
 
       <footer>
