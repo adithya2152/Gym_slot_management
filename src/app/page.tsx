@@ -27,7 +27,7 @@ export default function Home() {
 
         <section className="trainer-section">
           <h2>I am a Trainer</h2>
-          <Link  className="button" href={"/trainerlogin"}>Trainer Login</Link>
+          <Link  className="button" href={"/trainer/login"}>Trainer Login</Link>
         </section>
       </div>
 
