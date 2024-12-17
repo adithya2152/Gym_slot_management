@@ -3,7 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
-
+import "../../login-register.css"
 export default function Login() {
     const [loading, setLoading] = useState(false);
     const [credentials, setCredentials] = useState({    
@@ -47,48 +47,50 @@ export default function Login() {
     );
 
     return (
-        <div>
-            <h1>Login</h1>
-            {loading && <p>Loading ...</p>}
-            <form>
-                <label htmlFor="username">Username</label>
-                <input
-                    type="text"
-                    name="username"
-                    value={credentials.username}
-                    onChange={(e) =>
-                        setCredentials({ ...credentials, username: e.target.value })
-                    }
-                    required
-                />
+        <div className="login-reg-container">
+            <div className="login-box">
+                <h1>Login</h1>
+                {loading && <div className="loader"></div>}
+                <form className="login-form-container">
+                    <label htmlFor="username">Username</label>
+                    <input
+                        type="text"
+                        name="username"
+                        value={credentials.username}
+                        onChange={(e) =>
+                            setCredentials({ ...credentials, username: e.target.value })
+                        }
+                        required
+                    />
 
-                <label htmlFor="email">Email</label>
-                <input
-                    type="text"
-                    name="email"
-                    value={credentials.email}
-                    onChange={(e) =>
-                        setCredentials({ ...credentials, email: e.target.value })
-                    }
-                    required
-                />
+                    <label htmlFor="email">Email</label>
+                    <input
+                        type="text"
+                        name="email"
+                        value={credentials.email}
+                        onChange={(e) =>
+                            setCredentials({ ...credentials, email: e.target.value })
+                        }
+                        required
+                    />
 
-                <label htmlFor="password">Password</label>
-                <input
-                    type="password"
-                    name="password"
-                    value={credentials.password}
-                    onChange={(e) =>
-                        setCredentials({ ...credentials, password: e.target.value })
-                    }
-                    required
-                />
+                    <label htmlFor="password">Password</label>
+                    <input
+                        type="password"
+                        name="password"
+                        value={credentials.password}
+                        onChange={(e) =>
+                            setCredentials({ ...credentials, password: e.target.value })
+                        }
+                        required
+                    />
 
-                <button disabled={isLoginDisabled} onClick={handleLogin}>
-                    Login
-                </button>
-            </form>
-            <Toaster />
+                    <button disabled={isLoginDisabled} onClick={handleLogin}>
+                        Login
+                    </button>
+                </form>
+                <Toaster />
+            </div>
         </div>
     );
 }

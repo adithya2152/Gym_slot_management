@@ -1,0 +1,213 @@
+/* General container for login and register */
+.login-reg-container {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Login form box */
+.login-box {
+    width: 350px;
+    padding: 30px 25px;
+    background: rgba(255, 255, 255, 0.15);  
+    border-radius: 12px;
+    box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.1), 
+        inset 0 2px 4px rgba(255, 255, 255, 0.3); 
+    backdrop-filter: blur(12px);  
+    -webkit-backdrop-filter: blur(12px);
+    color: #ffffff;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.login-box h1 {
+    margin-bottom: 20px;
+    font-size: 2rem;
+    color: #ffffff;
+}
+
+/* Form styling */
+.login-form-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-form-container label {
+    margin: 10px 0 5px;
+    font-size: 0.9rem;
+    color: #ffffff;
+}
+
+
+.login-form-container input {
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    outline: none;
+    box-shadow: 
+        inset 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.login-form-container input:focus {
+    border-color: #dcdcdc;
+    box-shadow: 
+        inset 0 2px 4px rgba(0, 0, 0, 0.3),
+        0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+/* Button styling */
+.login-form-container button {
+    margin-top: 15px;
+    padding: 12px;
+    width: 100%;
+    border: none;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #8e44ad, #9b59b6); /* Purple gradient */
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.login-form-container button:disabled {
+    background: rgba(155, 155, 155, 0.3);
+    cursor: not-allowed;
+}
+
+.login-form-container button:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Register link styling */
+.login-box p {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: #e0e0e0;
+}
+
+.login-box a {
+    color: #f39c12;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-box a:hover {
+    text-decoration: underline;
+}
+
+/* Email section - input and button alignment */
+.email {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.email input {
+    flex: 1;
+    margin-top: 10px;
+}
+
+.email button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background: linear-gradient(135deg, #1abc9c, #16a085); /* Teal gradient */
+    border: none;
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.3s ease;
+}
+
+.email button:disabled {
+    background: rgba(155, 155, 155, 0.3);
+    cursor: not-allowed;
+}
+
+.email button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* OTP section layout */
+.otp {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.otp label {
+    margin-right: 10px;
+    font-size: 0.9rem;
+    color: #ffffff;
+}
+
+.otp input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+
+.otp button {
+    padding: 10px 15px;
+    background: linear-gradient(135deg, #e74c3c, #c0392b); /* Red gradient */
+    border: none;
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.3s ease;
+}
+
+.otp button:disabled {
+    background: rgba(155, 155, 155, 0.3);
+    cursor: not-allowed;
+}
+
+.otp button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Password fields */
+.password-container {
+    margin-top: 20px;
+}
+
+.password-container label {
+    margin: 10px 0 5px;
+    font-size: 0.9rem;
+    color: #ffffff;
+
+}
+
+.password-container input {
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    outline: none;
+    box-shadow: 
+        inset 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.password-container input:focus {
+    border-color: #dcdcdc;
+    box-shadow: 
+        inset 0 2px 4px rgba(0, 0, 0, 0.3),
+        0 0 8px rgba(255, 255, 255, 0.5);
+}

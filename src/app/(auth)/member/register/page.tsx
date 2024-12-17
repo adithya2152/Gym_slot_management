@@ -4,6 +4,8 @@ import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import bcrypt from "bcryptjs";
 import { useRouter } from "next/navigation";
+import "../../login-register.css"
+ 
 export default function Register() {
   const [credentials, setcredentials] = useState({
     username: "",
@@ -126,117 +128,119 @@ export default function Register() {
 );
 
   return (
-    <div>
-      <h1>Register</h1>
-      {loading && <p>Loading .../</p>}
-      <form>
-        <label htmlFor="username">Username</label>
-        <input
-          type="text"
-          name="username"
-          value={credentials.username}
-          onChange={(e) =>
-            setcredentials({ ...credentials, username: e.target.value })
-          }
-          required
-        />
-
-        <label htmlFor="age">Age</label>
-        <input
-          type="number"
-          name="age"
-          value={credentials.age}
-          onChange={(e) =>
-            setcredentials({ ...credentials, age: e.target.value })
-          }
-          required
-        />
-
-        <label htmlFor="weight"> Weight</label>
-        <input
-          type="number"
-          name="weight"
-          value={credentials.weight}
-          onChange={(e) =>
-            setcredentials({ ...credentials, weight: e.target.value })
-          }
-          required
-        />
-
-        <label htmlFor="height">Height</label>
-        <input
-          type="text"
-          name="height"
-          value={credentials.height}
-          onChange={(e) =>
-            setcredentials({ ...credentials, height: e.target.value })
-          }
-          required
-        />
-
-        <label htmlFor="email">Email</label>
-        <div>
+    <div className="login-reg-container">
+      <div className="login-box">
+        <h1>Register</h1>
+        {loading && <div className="loader"></div>}
+        <form className="login-form-container">
+          <label htmlFor="username">Username</label>
           <input
             type="text"
-            name="email"
-            value={credentials.email}
+            name="username"
+            value={credentials.username}
             onChange={(e) =>
-              setcredentials({ ...credentials, email: e.target.value })
+              setcredentials({ ...credentials, username: e.target.value })
             }
             required
           />
-          <button disabled={!credentials.email} onClick={handleVerify}>
-            {!isOtpSent ? "Send Otp" : "Resend"}
-          </button>
-        </div>
 
-        {isOtpSent && (
-          <div>
-            <label htmlFor="otp">Otp</label>
-            <input
-              type="number"
-              name="otp"
-              value={otp}
-              onChange={(e) => setOtp(e.target.value)}
-            />
-            <button disabled={!otp} onClick={handleVerifyOtp}>
-              Verify
-            </button>
-          </div>
-        )}
+          <label htmlFor="age">Age</label>
+          <input
+            type="number"
+            name="age"
+            value={credentials.age}
+            onChange={(e) =>
+              setcredentials({ ...credentials, age: e.target.value })
+            }
+            required
+          />
 
-        {isOtpVerified && (
-          <div>
-            <label htmlFor="password">Password</label>
+          <label htmlFor="weight"> Weight</label>
+          <input
+            type="number"
+            name="weight"
+            value={credentials.weight}
+            onChange={(e) =>
+              setcredentials({ ...credentials, weight: e.target.value })
+            }
+            required
+          />
+
+          <label htmlFor="height">Height</label>
+          <input
+            type="text"
+            name="height"
+            value={credentials.height}
+            onChange={(e) =>
+              setcredentials({ ...credentials, height: e.target.value })
+            }
+            required
+          />
+
+          <label htmlFor="email">Email</label>
+          <div className="email">
             <input
-              type="password"
-              name="password"
-              value={password}
-              onChange={(e) => setpassword(e.target.value)}
+              type="text"
+              name="email"
+              value={credentials.email}
+              onChange={(e) =>
+                setcredentials({ ...credentials, email: e.target.value })
+              }
               required
             />
-            
-            <label htmlFor="conf_pass">Confirm Password</label>
-            <input
-              type="password"
-              name="conf_pass"
-              value={conf_pass}
-              onChange={(e) => setConfPass(e.target.value)}
-              required
-            />
-
-            <button disabled={isRegisterDisabled} onClick={handleRegister}>
-              Register
+            <button disabled={!credentials.email} onClick={handleVerify}>
+              {!isOtpSent ? "Send Otp" : "Resend"}
             </button>
           </div>
-        )}
 
-        <p>
-            Already have an account? <a href="/member/login">Login</a>
+          {isOtpSent && (
+            <div className="otp">
+              <label htmlFor="otp">Otp</label>
+              <input
+                type="number"
+                name="otp"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+              />
+              <button disabled={!otp} onClick={handleVerifyOtp}>
+                Verify
+              </button>
+            </div>
+          )}
 
-        </p>
-      </form>
-      <Toaster />
+          {isOtpVerified && (
+            <div className="password-container">
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                name="password"
+                value={password}
+                onChange={(e) => setpassword(e.target.value)}
+                required
+              />
+              
+              <label htmlFor="conf_pass">Confirm Password</label>
+              <input
+                type="password"
+                name="conf_pass"
+                value={conf_pass}
+                onChange={(e) => setConfPass(e.target.value)}
+                required
+              />
+
+              <button disabled={isRegisterDisabled} onClick={handleRegister}>
+                Register
+              </button>
+            </div>
+          )}
+
+          <p>
+              Already have an account? <a href="/member/login">Login</a>
+
+          </p>
+        </form>
+        <Toaster />
+      </div>
     </div>
   );
 }

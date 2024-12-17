@@ -1,6 +1,6 @@
 import Hnav from "../components/hnav";
 import Link from "next/link";
-import "../styles/main.css";
+import "@/styles/main.css";
 
 export default function Home() {
   return (

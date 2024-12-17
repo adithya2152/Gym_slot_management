@@ -1,6 +1,6 @@
 export default function loading()
 {
     return(
-        <h1>Loading</h1>
+        <span className="loader1">Load&nbsp;ng</span>
     )
 }

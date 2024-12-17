@@ -27,7 +27,7 @@ export async function POST(req: Request) {
         console.log(userError)  
         if (userError || !userData?.length) {
             return new Response(
-                JSON.stringify({ message: "User not found or not registered in the trainers data" }),
+                JSON.stringify({ message: "User not a Trainer" }),
                 { status: 404 }
             );
         }

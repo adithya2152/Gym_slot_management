@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import "../styles/nav.css";
+import "./nav.css";
 
 type StyleProps = {
   style: string;
@@ -21,6 +21,7 @@ export default function Hnav(props: StyleProps) {
     }
   };
 
+   
   return (
     <div>
       <nav>
@@ -41,7 +42,6 @@ export default function Hnav(props: StyleProps) {
             <div className="nav-right">
               <select
                 className="dropdown"
-                defaultValue=""
                 value={selectedMuscle}
                 onChange={handleChange} // Attach only if onSelect is passed
               >
@@ -64,7 +64,7 @@ export default function Hnav(props: StyleProps) {
               </Link>
             </div>
             <div className="nav-right">
-              <Link href="/AdminLogin" className="login">
+              <Link href="/AdminLogin" className="admin-login-nav">
                 Admin Login
               </Link>
             </div>
