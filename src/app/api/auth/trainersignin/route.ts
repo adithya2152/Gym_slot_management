@@ -64,6 +64,15 @@ export async function POST(req: Request) {
                 maxAge: 60 * 60 * 24 * 7, // 1 week
             }
         );
+        res.cookies.set("role","trainer",
+            {
+                httpOnly:true,
+                secure: process.env.NODE_ENV === "production",
+                path: "/",
+                sameSite: "strict",
+                maxAge: 60 * 60 * 24 * 7,
+            }
+        )
 
         return res;
 

@@ -27,7 +27,7 @@ export default function Login() {
 
             if (res.status === 200) {
                 toast.success("Logged In");
-                router.push("/memberhome");
+                router.push("/member/home");
             } else {
                 throw new Error(res.data.error || "Unknown error");
             }

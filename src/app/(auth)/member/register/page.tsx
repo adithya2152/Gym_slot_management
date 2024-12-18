@@ -103,7 +103,7 @@ export default function Register() {
 
       if (res.status === 201) {
         toast.success("Registered Successfully");
-        router.push("/memberhome");
+        router.push("/member/home");
       } else {
         throw new Error(res.data.error || "Unknown error");
       }
