@@ -67,13 +67,13 @@ export default function Exercises() {
       {error && <p className="error">{error}</p>}
       {loading && <div className="loader"></div>}
 
-      <div className="exercise-grid">
+      <div className="exercise-grid-container">
         {exercises.map((exer, index) => (
-          <div key={index} className="exercise-card">
+          <div key={index} className="exercise-card-container">
             <Exercise_Card {...exer} />
           </div>
         ))}
-      </div>
+      </div>  
     </div>
   );
 }

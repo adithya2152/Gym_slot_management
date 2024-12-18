@@ -1,1 +1,125 @@
+/* Exercise Page Container */
+.exercise-page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+  }
+  .exercise-page h1
+  {
+    text-align: center;
+  }
+  
+  /* Page Header */
+  .exercise-page-header {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    color: #fff;
+  }
+  
+  /* Grid Layout */
+/* Grid Layout: Fixed 3 Columns */
+.exercise-grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+    gap: 20px;
+    margin-top: 20px;
+    padding: 10px;
+  }
+  
+  /* Responsive Behavior */
+  @media (max-width: 1024px) {
+    .exercise-grid-container {
+      grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .exercise-grid-container {
+      grid-template-columns: 1fr; /* 1 column on small screens */
+    }
+  }
+  
+  
+  /* Exercise Card: Glass Effect */
+  .exercise-card-container {
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent glass effect */
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .exercise-card-container:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Card Header */
+  .exercise-card-header h2 {
+    font-size: 1.5rem;
+    margin: 0;
+    color: #ffffff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Card Info: Initially Hidden */
+  .exercise-card-info {
+    opacity: 0;
+    max-height: 0;
+    visibility: hidden;
+    transition: all 0.5s ease;
+  }
+  
+  .exercise-card-container:hover .exercise-card-info {
+    opacity: 1;
+    visibility: visible;
+    max-height: 300px;
+    margin-top: 10px;
+  }
+  
+  /* Card Details */
+  .exercise-card-info p {
+    color: #f0f0f0;
+    margin: 8px 0;
+    font-size: 1rem;
+  }
+  
+  /* Instructions Box */
+  .exercise-card-instructions {
+    margin-top: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 8px;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .exercise-card-instructions strong {
+    color: #ffcc00;
+  }
+  
  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* Error Message Styling */
+  .error {
+    color: #ff4444;
+    font-size: 1rem;
+    margin: 20px;
+  }
+  

@@ -16,6 +16,7 @@ export async function middleware(req: NextRequest) {
   const publicRoutes = [
     "/member/login",
     "/member/register",
+    "/trainer/login",
     "/exercises",
     "/Adminlogin",
     "/restricted", // Explicitly allow access to the restricted page

@@ -33,12 +33,6 @@ export default function Hnav(props: StyleProps) {
               </Link>
             </div>
 
-            <div className="nav-center">
-              <Link className="exercises" href="/exercises">
-                Exercises
-              </Link>
-            </div>
-
             <div className="nav-right">
               <select
                 className="dropdown"
