@@ -41,7 +41,7 @@ export async function POST(req: Request)
         .from('gymsync_members')    
         .insert([
           {
-            user_id:user.id,
+            id:user.id,
             username:username,
             email:email,
             age:age,
