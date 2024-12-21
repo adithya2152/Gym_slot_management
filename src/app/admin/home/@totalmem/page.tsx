@@ -1,6 +1,9 @@
+import Card from "@/components/dashCard"
 export default function Member()
 {
     return (
-        <h1>member</h1>
+         <Card>
+            <h1>Welcome Member</h1>
+         </Card>
     )
 }

@@ -1,6 +1,9 @@
+import Card from "@/components/dashCard"
 export default function Slots()
 {
     return(
-        <h1>Slots</h1>
+        <Card>
+            <h2>Slots</h2>
+        </Card>
     )
 }

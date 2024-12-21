@@ -1,6 +1,9 @@
+import Card from "@/components/dashCard";
 export default function Trainer()
 {
     return(
-        <h1>Trainer</h1>
+        <Card>
+            <h2>Trainers</h2>
+        </Card>
     )
 }

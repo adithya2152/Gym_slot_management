@@ -39,6 +39,101 @@ background-image: url("https://www.transparenttextures.com/patterns/diagmonds-li
   align-items: center;
 
 }
+/* CALENDER STYLE */
+
+.booked-slot {
+  background-color: red !important;
+  color: white;
+  border-radius: 50%;
+}
+
+.free-slot {
+  background-color: green !important;
+  color: white;
+  border-radius: 50%;
+}
+
+.calendar-container {
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  margin: 20px auto;
+  width: fit-content;
+  backdrop-filter: blur(10px);
+}
+
+/* Calendar Header */
+.calender h2 {
+  text-align: center;
+  font-size: 24px;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+/* Calendar Tiles */
+.react-calendar {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  border: none;
+  border-radius: 15px;
+}
+
+.react-calendar__tile {
+  height: 50px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+  color: #333;
+}
+
+.react-calendar__tile:enabled:hover {
+  background-color: #4a90e2;
+  color: #fff;
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.react-calendar__tile--now {
+  background-color: #ffd700;
+  color: #000;
+  font-weight: bold;
+}
+
+.react-calendar__tile.booked {
+  background-color: #e57373;
+  color: #fff;
+}
+
+.react-calendar__tile.available {
+  background-color: #81c784;
+  color: #fff;
+}
+
+/* Active Day Styling */
+.react-calendar__tile--active {
+  background-color: #4caf50;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* Media Query for Responsiveness */
+@media screen and (max-width: 768px) {
+  .react-calendar {
+    width: 90%;
+    font-size: 0.9em;
+  }
+
+  .react-calendar__tile {
+    height: 40px;
+    width: 40px;
+  }
+}
+
 
 /* HTML: <div class="loader"></div> */
 .loader {
