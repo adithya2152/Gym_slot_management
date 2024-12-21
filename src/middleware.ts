@@ -18,7 +18,7 @@ export async function middleware(req: NextRequest) {
     "/member/register",
     "/trainer/login",
     "/exercises",
-    "/Adminlogin",
+    "/admin/login",
     "/restricted", // Explicitly allow access to the restricted page
   ];
 

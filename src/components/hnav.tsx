@@ -58,7 +58,7 @@ export default function Hnav(props: StyleProps) {
               </Link>
             </div>
             <div className="nav-right">
-              <Link href="/AdminLogin" className="admin-login-nav">
+              <Link href="/admin/login" className="admin-login-nav">
                 Admin Login
               </Link>
             </div>
