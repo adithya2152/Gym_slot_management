@@ -12,21 +12,43 @@ import Tooltip from "@mui/material/Tooltip";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MenuIcon from "@mui/icons-material/Menu";
+import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
-const pages = ["Manage Users", "Manage Trainers", "Manage Slots"];
+const pages = [
+  { name: "Manage Users", path: "/admin/manageUsers" },
+  { name: "Manage Trainers", path: "/admin/manageTrainers" },
+  { name: "Manage Slots", path: "/admin/manageSlots" }
+];
 const settings = ["Profile", "Logout"];
 
 function ResponsiveAppBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
+  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      const res = await axios.post("/api/auth/logout");
+      if (res.status === 200) {
+        console.log("User logged out successfully");
+        toast.success("Logged out successfully");
+        router.push("/"); // Redirect to login page
+      } else {
+        console.error("Failed to log out:", res.data.error);
+        toast.error("Failed to log out", res.data.error || res.data.message);
+      }
+    } catch (error) {
+      console.error("Error during logout:", error);
+      toast.error("Failed to log out");
+    }
+  };
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
+
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -39,6 +61,11 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
 
+  const handlePageClick = (path: string) => {
+    router.push(path);
+    handleCloseNavMenu(); // Close menu after navigation
+  };
+
   return (
     <AppBar
       position="sticky"
@@ -49,6 +76,7 @@ function ResponsiveAppBar() {
         backgroundColor: "rgba(34, 34, 34, 0.8)",
       }}
     >
+      <Toaster position="top-right" />
       <Container maxWidth="xl">
         <Toolbar
           disableGutters
@@ -86,15 +114,15 @@ function ResponsiveAppBar() {
           >
             {pages.map((page) => (
               <Button
-                key={page}
-                onClick={handleCloseNavMenu}
+                key={page.name}
+                onClick={() => handlePageClick(page.path)}
                 sx={{
                   color: "white",
                   fontSize: "18px",
                   textTransform: "none",
                 }}
               >
-                {page}
+                {page.name}
               </Button>
             ))}
           </Box>
@@ -133,8 +161,11 @@ function ResponsiveAppBar() {
               onClose={handleCloseNavMenu}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: "center" }}>{page}</Typography>
+                <MenuItem
+                  key={page.name}
+                  onClick={() => handlePageClick(page.path)}
+                >
+                  <Typography sx={{ textAlign: "center" }}>{page.name}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -150,7 +181,7 @@ function ResponsiveAppBar() {
           >
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Admin"/>
+                <Avatar alt="Admin" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -170,10 +201,16 @@ function ResponsiveAppBar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography sx={{ textAlign: "center" }}>
-                    {setting}
-                  </Typography>
+                <MenuItem
+                  key={setting}
+                  onClick={() => {
+                    handleCloseUserMenu();
+                    if (setting === "Logout") {
+                      handleLogout();
+                    }
+                  }}
+                >
+                  <Typography sx={{ textAlign: "center" }}>{setting}</Typography>
                 </MenuItem>
               ))}
             </Menu>
