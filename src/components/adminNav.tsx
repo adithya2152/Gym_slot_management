@@ -91,7 +91,7 @@ function ResponsiveAppBar() {
             variant="h6"
             noWrap
             component="a"
-            href="#"
+            href="/"
             sx={{
               fontFamily: "monospace",
               fontWeight: 700,

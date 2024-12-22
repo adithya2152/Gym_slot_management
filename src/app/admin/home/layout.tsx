@@ -1,4 +1,4 @@
-import ResponsiveAppBar from "@/components/adminNav";
+ 
 import "@/styles/admin-layout.css"
 
 export default function AdminDash({
@@ -20,7 +20,6 @@ export default function AdminDash({
 {
     return (
         <div>
-            <ResponsiveAppBar />
             {children}
 
             <div className="Admin_grid">
