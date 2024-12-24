@@ -28,7 +28,7 @@ export default function Hnav(props: StyleProps) {
         {props.style === "exercise" ? (
           <>
             <div className="nav-left">
-              <Link className="header" href="/home">
+              <Link className="header" href="/">
                 <h1>GymSync</h1>
               </Link>
             </div>
@@ -53,7 +53,7 @@ export default function Hnav(props: StyleProps) {
         ) : (
           <>
             <div className="nav-left">
-              <Link className="header" href="/home">
+              <Link className="header" href="/">
                 <h1>GymSync</h1>
               </Link>
             </div>

@@ -18,7 +18,8 @@ import { useRouter } from "next/navigation";
 
 const pages = [
   { name: "Book Slots", path: "/member/bookSlots" },
-  { name: "Book Trainers", path: "#" },
+  { name: "Book Trainers", path: "#" }, 
+  { name : "Exercises", path:"/exercises"}
 //   { name: "Manage Slots", path: "/admin/manageSlots" }
 ];
 const settings = ["Profile", "Logout"];

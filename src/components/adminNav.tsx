@@ -19,7 +19,8 @@ import { useRouter } from "next/navigation";
 const pages = [
   { name: "Manage Users", path: "/admin/manageUsers" },
   { name: "Manage Trainers", path: "/admin/manageTrainers" },
-  { name: "Manage Slots", path: "/admin/manageSlots" }
+  { name: "Manage Slots", path: "/admin/manageSlots" },
+  { name: "Exercises", path: "/exercises" },
 ];
 const settings = ["Profile", "Logout"];
 
