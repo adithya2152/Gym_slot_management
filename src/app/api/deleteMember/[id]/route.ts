@@ -1,10 +1,13 @@
 import { admin_supabase } from "@/util/supabase";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
+// DELETE handler for dynamic route [id]
+export async function DELETE(request: NextRequest) {
     try {
-        const { id } = await params; // Extract the `id` from the route params
-        console.log("param ID" , id);
+        const { pathname } = request.nextUrl;
+        const id = pathname.split('/').pop(); // Extract the ID from the URL
+
+        console.log("param ID", id);
 
         if (!id) {
             return NextResponse.json({ message: "ID is required" }, { status: 400 });
@@ -15,7 +18,7 @@ export async function DELETE(request: Request, { params }: { params: { id: strin
             .delete()
             .eq("id", id);
 
-        console.log("After delete",data);
+        console.log("After delete", data);
         if (DeleteError) {
             console.error("Error deleting member:", DeleteError);
             return NextResponse.json({ message: DeleteError.message }, { status: 500 });
