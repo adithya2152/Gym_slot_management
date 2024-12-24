@@ -5,7 +5,7 @@ import "./nav.css";
 
 type StyleProps = {
   style: string;
-  onSelect?: (muscle: string) => void; // Optional prop
+  onSelect?: (muscle: string) => void;  
 };
 
 export default function Hnav(props: StyleProps) {
@@ -15,7 +15,7 @@ export default function Hnav(props: StyleProps) {
     const selectedValue = e.target.value;
     setSelectedMuscle(selectedValue);
 
-    // Call onSelect if it is provided
+     
     if (props.onSelect) {
       props.onSelect(selectedValue);
     }
@@ -37,7 +37,7 @@ export default function Hnav(props: StyleProps) {
               <select
                 className="dropdown"
                 value={selectedMuscle}
-                onChange={handleChange} // Attach only if onSelect is passed
+                onChange={handleChange}  
               >
                 <option value="" disabled>
                   Select Muscle Type
