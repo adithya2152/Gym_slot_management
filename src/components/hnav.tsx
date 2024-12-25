@@ -1,11 +1,13 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import Image from "next/image";
+
 import "./nav.css";
 
 type StyleProps = {
   style: string;
-  onSelect?: (muscle: string) => void;  
+  onSelect?: (muscle: string) => void;
 };
 
 export default function Hnav(props: StyleProps) {
@@ -15,13 +17,11 @@ export default function Hnav(props: StyleProps) {
     const selectedValue = e.target.value;
     setSelectedMuscle(selectedValue);
 
-     
     if (props.onSelect) {
       props.onSelect(selectedValue);
     }
   };
 
-   
   return (
     <div>
       <nav>
@@ -29,6 +29,7 @@ export default function Hnav(props: StyleProps) {
           <>
             <div className="nav-left">
               <Link className="header" href="/">
+                <Image src="/logo.png" alt="GymSync Logo" className="logo" width={50} height={50} />
                 <h1>GymSync</h1>
               </Link>
             </div>
@@ -37,15 +38,15 @@ export default function Hnav(props: StyleProps) {
               <select
                 className="dropdown"
                 value={selectedMuscle}
-                onChange={handleChange}  
+                onChange={handleChange}
               >
                 <option value="" disabled>
                   Select Muscle Type
                 </option>
                 <option value="Any">Show All</option>
                 <option value="biceps">Biceps</option>
-                <option value="chest">Chest</option>
-                <option value="legs">Legs</option>
+                <option value="abdominals">Abdominals</option>
+                <option value="abductors">Abductors</option>
                 <option value="back">Back</option>
               </select>
             </div>
@@ -54,6 +55,7 @@ export default function Hnav(props: StyleProps) {
           <>
             <div className="nav-left">
               <Link className="header" href="/">
+                <Image src="/logo.png" alt="GymSync Logo" className="logo" width={50} height={50} />
                 <h1>GymSync</h1>
               </Link>
             </div>

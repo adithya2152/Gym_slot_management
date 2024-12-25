@@ -1,115 +1,168 @@
 "use client"
-import { useState } from 'react';
+import axios from "axios";  
+import { useState, useEffect } from "react";
+import toast, { Toaster } from "react-hot-toast";
+import "@/styles/manage_slots.css"
 
-// Define types for the slots and bookings
-type Slot = {
+interface SLOTS {
+  sid: number;
   date: string;
-  time: string;
-};
+  start_time: string;
+  end_time: string;
+  max_alloc: number;
+  isBooked: boolean;
+  booked: number;
+}
 
-const SlotBookingPage = () => {
-  // State for selected slot, booked slots, and multi-day bookings
-  const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null);
-  const [bookedSlots, setBookedSlots] = useState<Slot[]>([]);
-  const [multiDay, setMultiDay] = useState<boolean>(false);
+export default function BookSlots() {
+  const [loading, setLoading] = useState(false);
+  const [slots, setSlots] = useState<SLOTS[]>([]);
+  const [date, setDate] = useState<string | null>(null);
+  const [time, setTime] = useState<string | null>(null);
+  const [filter, setFilter] = useState<string>(''); // Added filter state
+  const [isBooking, setIsBooking] = useState<number | null>(null); // Track booking status for each slot
 
-  // Sample available slots (you can replace this with your API data)
-  const availableSlots: Slot[] = [
-    { date: "2024-12-25", time: "9:00 AM - Yoga Class" },
-    { date: "2024-12-25", time: "11:00 AM - Treadmill" },
-    { date: "2024-12-26", time: "9:00 AM - Yoga Class" },
-    { date: "2024-12-26", time: "12:00 PM - Weight Room" },
-    { date: "2024-12-27", time: "3:00 PM - Cardio" }
-  ];
+  useEffect(() => {
+    const fetchSlots = async () => {
+      setLoading(true);
+      try {
+        let url = '/api/getSlots'; // Base URL for slots
 
-  // Handle slot selection
-  const handleSlotSelection = (slot: Slot) => {
-    setSelectedSlot(slot);
+        // Apply filter if provided (date or time)
+        if (filter === 'date' && date) {
+          url += `?date=${date}`;
+        } else if (filter === 'time' && time) {
+          url += `?time=${time}`;
+        }
+
+        const res = await axios.get(url);
+        if (res.status === 200) {
+          setSlots(res.data);
+        } else {
+          toast.error("Failed to fetch slots");
+          throw new Error(res.data.message);
+        }
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          console.error(error);
+          toast.error(error.response?.data?.message || "An error occurred");
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSlots();
+  }, [date, time, filter]); 
+
+  const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setFilter(e.target.value);
   };
 
-  // Handle booking the slot
-  const handleBookSlot = () => {
-    if (selectedSlot) {
-      setBookedSlots([...bookedSlots, selectedSlot]);
-      alert(`Booked: ${selectedSlot.time} on ${selectedSlot.date}`);
-      setSelectedSlot(null); // Reset selected slot after booking
-    } else {
-      alert("Please select a slot first!");
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDate(e.target.value);
+  };
+
+  const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTime(e.target.value);
+  };
+
+  const handleBookSlots = async (sid: number) => {
+    if (isBooking === sid) {
+      return; // Prevent multiple clicks while booking is in progress
     }
-  };
 
-  // Handle canceling a booking
-  const handleCancelBooking = (index: number) => {
-    const newBookedSlots = [...bookedSlots];
-    newBookedSlots.splice(index, 1);
-    setBookedSlots(newBookedSlots);
-  };
+    setIsBooking(sid); // Mark the slot as being booked
 
-  // Handle multi-day booking
-  const handleMultiDayBooking = () => {
-    if (multiDay && selectedSlot) {
-      const multiDayBookings = availableSlots.filter(slot => slot.time === selectedSlot.time);
-      setBookedSlots([...bookedSlots, ...multiDayBookings]);
-      alert(`Booked ${selectedSlot.time} for multiple days.`);
-      setMultiDay(false);
-      setSelectedSlot(null);
+    try {
+      const res = await axios.put("/api/updateSlotBook", sid, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (res.status === 200) {
+        toast.success("Slot Booked");
+        window.location.reload();
+      } else {
+        toast.error("Failed to book slot");
+        throw new Error("Failed to book slot");
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error(error);
+        toast.error(error.response?.data?.message || "An error occurred");
+      }
+    } finally {
+      setIsBooking(null); // Reset the booking status
     }
   };
 
   return (
     <div className="container">
-      <h1>Slot Booking</h1>
+      {loading && <div className="loader"></div>}
+      <h1 className="page-title">Slots</h1>
+      <div className="filter-section">
+        <button className="add-slot-btn">Book Multiple Slot</button>
+        <select className="filter-select" value={filter} onChange={handleFilterChange}>
+          <option value="" disabled>Filter</option>
+          <option value="Any">All Slots</option>
+          <option value="date">Date</option>
+          <option value="time">Time</option>
+        </select>
 
-      {/* Slot List (Upcoming Dates and Times) */}
-      <div className="slot-list">
-        <h3>Available Slots</h3>
-        {availableSlots.map((slot, index) => (
-          <div
-            key={index}
-            className={`slot-item ${selectedSlot?.time === slot.time && selectedSlot?.date === slot.date ? "selected" : ""}`}
-            onClick={() => handleSlotSelection(slot)}
-          >
-            <p>{slot.date} - {slot.time}</p>
-          </div>
-        ))}
-      </div>
+        {filter === 'date' && (
+          <input type="date" className="date-input" value={date || ''} onChange={handleDateChange} />
+        )}
 
-      {/* Book or Cancel Slot */}
-      {selectedSlot && !bookedSlots.includes(selectedSlot) && (
-        <button onClick={handleBookSlot}>Book Slot</button>
-      )}
-
-      {/* Multi-day Booking Option */}
-      <div>
-        <label>
-          <input
-            type="checkbox"
-            checked={multiDay}
-            onChange={() => setMultiDay(!multiDay)}
-          />
-          Book for Multiple Days (same slot)
-        </label>
-        {multiDay && (
-          <button onClick={handleMultiDayBooking}>Confirm Multi-Day Booking</button>
+        {filter === 'time' && (
+          <input type="time" className="time-input" value={time || ''} onChange={handleTimeChange} />
         )}
       </div>
 
-      {/* Your Booked Slots */}
-      <h3>Your Bookings</h3>
-      {bookedSlots.length === 0 ? (
-        <p>No bookings yet.</p>
-      ) : (
-        <ul>
-          {bookedSlots.map((booking, index) => (
-            <li key={index}>
-              {booking.time} on {booking.date}
-              <button onClick={() => handleCancelBooking(index)}>Cancel</button>
-            </li>
-          ))}
-        </ul>
-      )}
+      <div className="slots-list">
+        {slots.length > 0 ? (
+          <table className="slots-table">
+            <thead>
+              <tr>
+                <th>Slot ID</th>
+                <th>Date</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Max Alloc</th>
+                <th>Is Booked</th>
+                <th>Booked</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {slots.map((slot) => (
+                <tr key={slot.sid} className={slot.isBooked ? "disable" : ""}>
+                  <td>{slot.sid}</td>
+                  <td>{slot.date}</td>
+                  <td>{slot.start_time}</td>
+                  <td>{slot.end_time}</td>
+                  <td>{slot.max_alloc}</td>
+                  <td>{slot.isBooked ? 'Yes' : 'No'}</td>
+                  <td>{slot.booked}</td>
+                  <td>
+                    <button
+                      className="edit-slot-btn"
+                      onClick={() => handleBookSlots(slot.sid)}
+                      disabled={isBooking === slot.sid || slot.isBooked} // Disable button if already being booked or booked
+                    >
+                      {isBooking === slot.sid ? "Booking..." : "Book Slot"}
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p className="no-slots-message">No slots available</p>
+        )}
+      </div>
+      <Toaster />
     </div>
   );
-};
-
-export default SlotBookingPage;
+}

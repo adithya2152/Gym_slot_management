@@ -15,6 +15,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const pages = [
   { name: "Book Slots", path: "/member/bookSlots" },
@@ -88,6 +89,13 @@ function ResponsiveAppBar() {
           }}
         >
           {/* Logo */}
+          <Image
+              src="/logo.png"  
+              alt="GymSync Logo"
+              width={40}  
+              height={40}
+              style={{ marginRight: "10px" }} 
+            />
           <Typography
             variant="h6"
             noWrap
@@ -98,9 +106,10 @@ function ResponsiveAppBar() {
               fontWeight: 700,
               letterSpacing: ".3rem",
               color: "white",
-              textDecoration: "none",
+              textDecoration: "none", 
             }}
           >
+             
             GymSync
           </Typography>
 
