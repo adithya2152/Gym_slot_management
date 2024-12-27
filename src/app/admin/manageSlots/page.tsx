@@ -5,7 +5,17 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import "@/styles/manage_slots.css";
 import FormDialog from "@/components/formDialog";
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogActions,  
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  TextField,
+  // CssBaseline,
+} from "@mui/material";
+// import {createTheme , ThemeProvider} from "@mui/material/styles"
 
 interface SLOTS {
   sid: number;
@@ -33,6 +43,17 @@ export default function Slots() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
   const [selectedSlotId, setSelectedSlotId] = useState<number | null>(null);
+
+
+  const [multipleSlotDialog , setMultipleSlotDialog] = useState(false)
+  const [multiSlotData, setMultiSlotData] = useState({
+    start_date: "",
+    end_date: "",
+    slot_count: 1,
+    first_start_time: "",
+    slot_duration: "01:00:00",
+    max_alloc: 1,
+  });
 
   useEffect(() => {
     const fetchSlots = async () => {
@@ -81,10 +102,17 @@ export default function Slots() {
   const handleDialogOpen = () => {
     setDialogOpen(true);
   };
+  // const handleMultipleSlotOpen = () => {
+  //   setMultipleSlotDialog(true);
+  // }
 
   const handleDialogClose = () => {
     setDialogOpen(false);
   };
+
+  // const handleMultipleSlotClose = () => {
+  //   setMultipleSlotDialog(false);
+  // }
 
   const handleConfirmDialogOpen = (slotId: number) => {
     setSelectedSlotId(slotId);
@@ -256,6 +284,54 @@ export default function Slots() {
           </Button>
         </DialogActions>
       </Dialog>
+
+
+      <Dialog 
+      open = {multipleSlotDialog}
+      onClose = {()=>setMultipleSlotDialog(false)}
+      PaperProps={{
+        sx: {
+          backgroundColor: "background.paper",
+          boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.5)",
+          borderRadius: "12px",
+          padding: 2,
+          border: "1px solid rgba(255, 255, 255, 0.1)",
+        },
+      }}
+      >
+        <DialogTitle
+        sx={{
+          textAlign: "center",
+          fontSize: "1.5rem",
+          fontWeight: "bold",
+          color: "text.primary",
+        }}
+        >Add Multiple Slots</DialogTitle>
+         
+         <DialogContent>
+          <DialogContentText
+            sx={{
+              mb:2,
+              textAlign: "center",
+              color: "text.secondary",
+            }}
+            >
+              Fill in the details of the new trainer below.
+            </DialogContentText>
+ 
+            <TextField
+            required
+            margin="dense"
+            label="Start Date"
+            type="date"
+            name="Start Date"
+            fullWidth
+            value={multiSlotData.start_date}
+            onChange={(e) => setMultiSlotData({ ...multiSlotData, start_date: e.target.value })}
+          />
+        </DialogContent>
+      </Dialog>
+
     </div>
   );
 }
