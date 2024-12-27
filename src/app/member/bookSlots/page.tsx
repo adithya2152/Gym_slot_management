@@ -26,15 +26,20 @@ export default function BookSlots() {
     const fetchSlots = async () => {
       setLoading(true);
       try {
-        let url = '/api/getSlots'; // Base URL for slots
-
-        // Apply filter if provided (date or time)
-        if (filter === 'date' && date) {
+        let url = "/api/getSpecificSlots"; // Base URL for slots
+  
+        // Apply filter only for valid cases
+        if (filter === "date" && date) {
           url += `?date=${date}`;
-        } else if (filter === 'time' && time) {
+        } else if (filter === "time" && time) {
           url += `?time=${time}`;
+        } else if (filter === "Any" || !filter) {
+          // Do nothing to the URL; fetch all slots
+          console.log("Fetching all slots with no filters");
+        } else {
+          return;
         }
-
+  
         const res = await axios.get(url);
         if (res.status === 200) {
           setSlots(res.data);
@@ -51,10 +56,10 @@ export default function BookSlots() {
         setLoading(false);
       }
     };
-
+  
     fetchSlots();
-  }, [date, time, filter]); 
-
+  }, [date, time, filter]);
+  
   const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFilter(e.target.value);
   };
@@ -69,11 +74,10 @@ export default function BookSlots() {
 
   const handleBookSlots = async (sid: number) => {
     if (isBooking === sid) {
-      return; // Prevent multiple clicks while booking is in progress
+      return;  
     }
 
     setIsBooking(sid); // Mark the slot as being booked
-
     try {
       const res = await axios.put("/api/updateSlotBook", sid, {
         headers: {
@@ -81,9 +85,33 @@ export default function BookSlots() {
         },
       });
 
-      if (res.status === 200) {
-        toast.success("Slot Booked");
-        window.location.reload();
+      if (res.status === 200) 
+      {
+        try {
+          
+          const resp = await axios.post("/api/insertBooking" , sid , {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+
+          if(resp.status === 201)
+          {
+            toast.success("Slot Booked Successfully");
+            window.location.reload();
+          }
+
+          else{
+            throw new Error("Failed to book slot");
+          }
+        } catch (error) {
+          
+          if(axios.isAxiosError(error))
+          {
+            console.error(error);
+            toast.error(error.response?.data?.message || "An error occurred");
+          }
+        }
       } else {
         toast.error("Failed to book slot");
         throw new Error("Failed to book slot");

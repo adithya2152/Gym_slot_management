@@ -5,7 +5,7 @@ import "@/styles/main.css";
 export default function Home() {
   return (
     <div>
-      <Hnav style ="main" />
+      <Hnav style="main" />
       <section className="first-section">
         <h1>Welcome to GymSync</h1>
         <p>
@@ -21,19 +21,24 @@ export default function Home() {
       <div className="sign">
         <section className="member-section">
           <h2>I am a Member</h2>
-          <Link className="button" href={"/member/login"}>Member Login</Link>
+          <Link className="button" href={"/member/login"}>
+            Member Login
+          </Link>
         </section>
-
 
         <section className="trainer-section">
           <h2>I am a Trainer</h2>
-          <Link  className="button" href={"/trainer/login"}>Trainer Login</Link>
+          <Link className="button" href={"/trainer/login"}>
+            Trainer Login
+          </Link>
         </section>
       </div>
 
       <section className="signup-section">
         <h2>New User?</h2>
-        <Link className="button" href={"/member/register"}>Sign Up</Link>
+        <Link className="button" href={"/member/register"}>
+          Sign Up
+        </Link>
       </section>
 
       <footer>

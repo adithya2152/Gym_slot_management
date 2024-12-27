@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import Exercise_Card from "@/components/exer_card";
 import axios from "axios";
 import "@/styles/exercise.css"; // Import the CSS file
- 
 
 interface Exercises {
   name: string;
@@ -73,7 +72,7 @@ export default function Exercises() {
             <Exercise_Card {...exer} />
           </div>
         ))}
-      </div>  
+      </div>
     </div>
   );
 }

@@ -31,12 +31,12 @@ export async function middleware(req: NextRequest) {
   // If there is no userCookie and the user is on the root page "/", allow them to stay there
   if (!userCookie) {
     if (currPath === "/") {
-      console.log("No user cookie; user stays on the login page.");
+      console.log("No user cookie; user stays on the landing page.");
       return NextResponse.next(); // Allow access to the root "/"
     }
     // Otherwise, redirect unauthenticated users to the root "/"
     return NextResponse.redirect(new URL("/", req.url));
-  }
+  } 
 
   try {
     // Parse the user cookie to extract user data
