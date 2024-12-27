@@ -64,7 +64,7 @@
   footer {
     background-color: #222;
     color: #fff;
-    padding: 20px;
+    padding: 10px;
     text-align: center;
   }
   
@@ -72,10 +72,51 @@
   @media (max-width: 768px) {
     /* Adjust styles for smaller screens */
     .first-section h1 {
-      font-size: 3rem;
+      font-size: 2rem;
+      margin-bottom: 5px;
+      padding: 0px;
     }
-  
     .first-section p {
       font-size: 1.2rem;
+      padding: 0px;
+    }
+    .first-section {
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      text-align: center;
+      padding: 0px 0;
+    }
+
+    .sign
+    {
+      display: flex;
+      flex-direction: row;
+      justify-content:center;
+      border-bottom: 0px solid  #222;
+      margin-top: 0%;
+      padding: 0px;
+    }
+
+    .signup-section
+    {
+      padding: 0px;
+      margin-top: 0%;
+    }
+
+    .trainer-section
+    {
+      padding: 0px;
+      margin-top: 0%;
+    }
+    .member-section
+    {
+      padding: 0px;
+      margin-top: 0%;
+    }
+    .button
+    {
+      padding: 10px 10px;
+      border-radius:  0px;
     }
   }

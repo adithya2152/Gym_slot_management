@@ -81,8 +81,8 @@
   .exercise-card-container:hover .exercise-card-info {
     opacity: 1;
     visibility: visible;
-    max-height: 300px;
-    margin-top: 10px;
+    max-height: 3000px;
+    margin-top: 1px;
   }
   
   /* Card Details */
