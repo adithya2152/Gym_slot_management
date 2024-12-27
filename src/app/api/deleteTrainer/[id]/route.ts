@@ -14,6 +14,14 @@ export async function DELETE(request: NextRequest) {
             return NextResponse.json({ message: "ID is required" }, { status: 400 });
         }
 
+        const {error:autherror} = await admin_supabase.auth.admin.deleteUser(id)
+
+        if(autherror)
+            {
+            return NextResponse.json({ message: autherror.message }, { status: 500 });
+        }
+        
+
         const { data, error: DeleteError } = await admin_supabase
             .from("gymsync_trainer")
             .delete()

@@ -75,7 +75,7 @@
     /* Slightly lighter hover background */
 }
 
-.delete-btn {
+.delete-btn,.edit-btn {
     background-color: #e74c3c;
     /* Red button for delete */
     color: white;
@@ -85,7 +85,16 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
+.edit-btn {
+    margin-right: 10px;
+    background: #27ae60;
+    color: white;
+  }
 
+  .edit-btn:hover {
+    background-color: #2ecc71;
+    /* Darker green on hover */
+  }
 .delete-btn:hover {
     background-color: #c0392b;
     /* Darker red on hover */

@@ -17,14 +17,14 @@ type EmailProps = {
   html: string;
 };
 
-// Single function to send email
 export const sendMail = async (props: EmailProps) => {
   try {
     // Generate access token
-    const accessToken = await oAuth2Client.getAccessToken();
+    const accessTokenResponse = await oAuth2Client.getAccessToken();
+    const accessToken = accessTokenResponse?.token;
 
     if (!accessToken) {
-      throw new Error("Failed to get access token");
+      throw new Error("Failed to retrieve access token");
     }
 
     // Configure transport
@@ -38,8 +38,21 @@ export const sendMail = async (props: EmailProps) => {
         clientId: CLIENT_ID,
         clientSecret: CLIENT_SECRET,
         refreshToken: REFRESH_TOKEN,
-        accessToken: accessToken.token as string,
+        accessToken: accessToken,
       },
+    });
+
+    // Verify connection configuration
+    await new Promise<void>((resolve, reject) => {
+      transporter.verify((error, success) => {
+        if (error) {
+          console.error("Transporter verification failed:", error);
+          reject(error);
+        } else {
+          console.log("Transporter verified successfully:", success);
+          resolve();
+        }
+      });
     });
 
     // Email options
@@ -52,11 +65,25 @@ export const sendMail = async (props: EmailProps) => {
     };
 
     // Send the email
-    const result = await transporter.sendMail(mailOptions);
-    console.log("Email sent:", result);
-    return result;
+    await new Promise<void>((resolve, reject) => {
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.error("Error sending email:", error);
+          reject(error);
+        } else {
+          console.log("Email sent successfully:", info);
+          resolve();
+        }
+      });
+    });
+
+    console.log("Email sending process completed");
   } catch (error) {
-    console.error("Error sending email:", error);
-    throw error;
+   
+    if(error instanceof Error)
+    {
+      console.error("Error occurred during email sending:", error.message || error);
+      throw error;
+    }
   }
 };

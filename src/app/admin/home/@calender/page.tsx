@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Card from "@/components/dashCard";
 import { toast, Toaster } from "react-hot-toast";
 import Calendar from "react-calendar";
