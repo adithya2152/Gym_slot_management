@@ -22,7 +22,8 @@ export async function POST(req:Request)
 
         const {data , error:InsertError} = await supabase
         .rpc("add_multiple_slots" , {start_date:start_date, end_date:end_date , slot_count:slot_count , first_start_time:first_start_time,slot_duration:slot_duration , max_alloc:max_alloc})
-
+        //supabase function for adding multiple slots 
+        //check in supabase for details
 
         if(InsertError)
         {

@@ -137,7 +137,7 @@ export default function Trainers() {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error("Add Error:", error);
-        toast.error(error.response?.data?.message || "An error occurred");
+        toast.error(error.response?.data?.error || "An error occurred");
       }
     } finally {
       setLoading(false);
