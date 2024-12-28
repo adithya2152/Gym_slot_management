@@ -152,40 +152,42 @@ export default function Trainers() {
       {loading && <div className="loader"></div>}
       <h1 className="title">Trainers</h1>
       <button className="add-user-btn" onClick={() => setDialogOpen(true)}>Add Trainer</button>
-      <table className="user-table">
-        <thead>
-          <tr>
-            <th>Trainer Name</th>
-            <th>Email</th>
-            <th>Age</th>
-            <th>Weight</th>
-            <th>Height</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {trainers.map((trainer) => (
-            <tr key={trainer.id}>
-              <td>{trainer.Trainer_name}</td>
-              <td>{trainer.email}</td>
-              <td>{trainer.age}</td>
-              <td>{trainer.weight}</td>
-              <td>{trainer.height}</td>
-              <td>{trainer.status}</td>
-              <td>
-                {/* <button className="edit-btn">Edit</button> */}
-                <button
-                  className="delete-btn"
-                  onClick={() => deleteTrainer(trainer.id)}
-                >
-                  Delete
-                </button>
-              </td>
+      <div className="table-container">
+        <table className="user-table">
+          <thead>
+            <tr>
+              <th>Trainer Name</th>
+              <th>Email</th>
+              <th>Age</th>
+              <th>Weight</th>
+              <th>Height</th>
+              <th>Status</th>
+              <th>Action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {trainers.map((trainer) => (
+              <tr key={trainer.id}>
+                <td>{trainer.Trainer_name}</td>
+                <td>{trainer.email}</td>
+                <td>{trainer.age}</td>
+                <td>{trainer.weight}</td>
+                <td>{trainer.height}</td>
+                <td>{trainer.status}</td>
+                <td>
+                  {/* <button className="edit-btn">Edit</button> */}
+                  <button
+                    className="delete-btn"
+                    onClick={() => deleteTrainer(trainer.id)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       <Dialog
         open={dialogOpen}

@@ -148,38 +148,39 @@ export default function ManageUsers() {
         >
           Add User
         </button>
-        <table className="user-table">
-          <thead>
-            <tr>
-              <th>Username</th>
-              <th>Email</th>
-              <th>Age</th>
-              <th>Weight</th>
-              <th>Height</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {members.map((member) => (
-              <tr key={member.id}>
-                <td>{member.username}</td>
-                <td>{member.email}</td>
-                <td>{member.age}</td>
-                <td>{member.weight}</td>
-                <td>{member.height}</td>
-                <td>
-                  <button
-                    onClick={() => deleteMember(member.id)}
-                    className="delete-btn"
-                  >
-                    {loading ? "Deleting..." : "Delete"}
-                  </button>
-                </td>
+        <div className="table-container">
+          <table className="user-table">
+            <thead>
+              <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Age</th>
+                <th>Weight</th>
+                <th>Height</th>
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-
+            </thead>
+            <tbody>
+              {members.map((member) => (
+                <tr key={member.id}>
+                  <td>{member.username}</td>
+                  <td>{member.email}</td>
+                  <td>{member.age}</td>
+                  <td>{member.weight}</td>
+                  <td>{member.height}</td>
+                  <td>
+                    <button
+                      onClick={() => deleteMember(member.id)}
+                      className="delete-btn"
+                    >
+                      {loading ? "Deleting..." : "Delete"}
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
         <Dialog
           open={dialogOpen}
           onClose={() => setDialogOpen(false)}

@@ -295,44 +295,46 @@
 
         <div className="slots-list">
           {slots.length > 0 ? (
-            <table className="slots-table">
-              <thead>
-                <tr>
-                  <th>Slot ID</th>
-                  <th>Date</th>
-                  <th>Start Time</th>
-                  <th>End Time</th>
-                  <th>Max Alloc</th>
-                  <th>Is Booked</th>
-                  <th>Booked</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {slots.map((slot) => (
-                  <tr
-                    key={slot.sid}
-                    className={slot.isBooked ? "is-booked-slot" : ""}
-                  >
-                    <td>{slot.sid}</td>
-                    <td>{slot.date}</td>
-                    <td>{slot.start_time}</td>
-                    <td>{slot.end_time}</td>
-                    <td>{slot.max_alloc}</td>
-                    <td>{slot.isBooked ? "Yes" : "No"}</td>
-                    <td>{slot.booked}</td>
-                    <td>
-                      <Button
-                        className="delete-slot-btn"
-                        onClick={() => handleConfirmDialogOpen(slot.sid)}
-                      >
-                        Delete Slot
-                      </Button>
-                    </td>
+            <div className="table-container">
+              <table className="slots-table">
+                <thead>
+                  <tr>
+                    <th>Slot ID</th>
+                    <th>Date</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Max Alloc</th>
+                    <th>Is Booked</th>
+                    <th>Booked</th>
+                    <th>Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {slots.map((slot) => (
+                    <tr
+                      key={slot.sid}
+                      className={slot.isBooked ? "is-booked-slot" : ""}
+                    >
+                      <td>{slot.sid}</td>
+                      <td>{slot.date}</td>
+                      <td>{slot.start_time}</td>
+                      <td>{slot.end_time}</td>
+                      <td>{slot.max_alloc}</td>
+                      <td>{slot.isBooked ? "Yes" : "No"}</td>
+                      <td>{slot.booked}</td>
+                      <td>
+                        <Button
+                          className="delete-slot-btn"
+                          onClick={() => handleConfirmDialogOpen(slot.sid)}
+                        >
+                          Delete Slot
+                        </Button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           ) : (
             <p className="no-slots-message">No slots available</p>
           )}
