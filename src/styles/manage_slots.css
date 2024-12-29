@@ -46,6 +46,7 @@
   .filter-section {
     display: flex;
     align-items: center;
+    justify-content:center;
     gap: 15px;
     margin-bottom: 20px;
   }
@@ -127,20 +128,7 @@
     background: #c0392b;
   }
   
-  /* Loader Style */
-  .loader {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border: 4px solid #333;
-    border-top: 4px solid #3498db;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
-  }
-  
+ 
   /* No Slots Message */
   .no-slots-message {
     text-align: center;
@@ -158,4 +146,103 @@
 .is-booked-slot:hover {
     background-color: rgba(255, 0, 0, 0.2) !important;
     /* Darker red when hovered */
+}
+
+/* member booking slot style */
+
+.button-container
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin:20px auto;
+}
+.button-container button
+{
+    padding: 10px 20px;
+   
+    margin: 0 10px;
+}
+
+/* Custom Checkbox Style */
+input[type="checkbox"] {
+  display: none; /* Hide the default checkbox visually */
+}
+
+input[type="checkbox"] + label {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #007bff; /* Blue border */
+  border-radius: 3px; /* Rounded corners */
+  background-color: #fff; /* White background */
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Checked State */
+input[type="checkbox"]:checked + label {
+  background-color: #007bff; /* Blue background */
+  border-color: #007bff; /* Blue border */
+}
+
+input[type="checkbox"]:checked + label::after {
+  content: "✔"; /* Checkmark symbol */
+  color: #fff; /* White color */
+  font-size: 12px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Disabled State */
+input[type="checkbox"]:disabled + label {
+  background-color: #e9ecef;
+  border-color: #ced4da;
+  cursor: not-allowed;
+}
+
+input[type="checkbox"]:disabled + label::after {
+  color: #adb5bd; /* Gray checkmark */
+}
+
+/* Center Checkboxes in Table Cells */
+td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+td input[type="checkbox"] + label {
+  margin: 0 auto;
+}
+
+
+/* memberdashstyle */
+
+.container1
+{
+    width: 50%;
+    margin: 50px 50px;
+    padding: 20px;
+    background: rgba(50, 50, 50, 0.5);
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.container1 h1
+{
+  color: #f9b233;
+}
+.container1:hover
+{
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+    transition: box-shadow 0.3s ease;
+    transform: translateY(-10px);
+
+}
+h1
+{
+    text-align: center;
 }

@@ -1,0 +1,73 @@
+/* Card container styling */
+.Card {
+    width: 50%;
+    padding: 1.5rem;
+    margin: 50px 50px;  
+    background: rgba(50, 50, 50, 0.5);
+    color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+.card:hover
+{
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+    transition: box-shadow 0.3s ease;
+    transform: translateY(-10px)
+}
+/* Header styling */
+.Card h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #f9b233; /* Highlighted color */
+}
+
+/* Goals container */
+.Goals-container {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+/* Individual goal item */
+.Goal-item {
+    background-color: #333;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-in-out;
+}
+
+.Goal-item:hover {
+    transform: scale(1.02);
+}
+
+/* Goal details */
+.Goal-item h3 {
+    font-size: 1.4rem;
+    color: #f9b233;
+    margin-bottom: 0.5rem;
+}
+
+.Goal-item p {
+    font-size: 1rem;
+    margin: 0.3rem 0;
+    color: #ddd;
+}
+
+/* Loader styling */
+.loader {
+    font-size: 1.2rem;
+    text-align: center;
+    margin: 1.5rem 0;
+    color: #f9b233;
+    font-weight: bold;
+}
+
+/* No goals message */
+.No-goals-message {
+    font-size: 1.2rem;
+    text-align: center;
+    color: #bbb;
+    margin-top: 1.5rem;
+}

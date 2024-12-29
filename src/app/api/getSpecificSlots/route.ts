@@ -11,7 +11,8 @@ export async function GET(req: NextRequest) {
       userId = JSON.parse(cookies).id;
     }
 
-    const date = req.nextUrl.searchParams.get("date");
+    const start_date = req.nextUrl.searchParams.get("start_date");
+    const end_date = req.nextUrl.searchParams.get("end_date");
     const time = req.nextUrl.searchParams.get("time");
 
     if (!userId) {
@@ -21,7 +22,8 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    console.log("Received date:", date);
+    console.log("Received start_date:", start_date);
+    console.log("Received end_date:", end_date);
     console.log("Received time:", time);
 
     // Step 1: Fetch already booked slot IDs for the user
@@ -40,17 +42,19 @@ export async function GET(req: NextRequest) {
 
     // Ensure bookedSlotIds is an array, even if no slots are booked
     const bookedSlotIds = bookedSlots ? bookedSlots.map((booking) => booking.sid) : [];
-
     console.log("Booked Slot IDs:", bookedSlotIds);
 
-    // Step 2: Fetch available slots
+    // Step 2: Fetch available slots with filters
     let query = supabase
       .from("gymsync_slots")
       .select("sid, date, start_time, end_time, max_alloc, booked");
 
-    if (date) {
-      console.log("Filtering slots by date:", date);
-      query = query.eq("date", date);
+    if (start_date && end_date) {
+      console.log("Filtering slots from start_date to end_date:", start_date, end_date);
+      query = query.gte("date", start_date).lte("date", end_date);
+    } else if (start_date) {
+      console.log("Filtering slots by start_date:", start_date);
+      query = query.eq("date", start_date);
     } else if (time) {
       console.log("Filtering slots by time:", time);
       query = query.eq("start_time", time);
@@ -59,11 +63,8 @@ export async function GET(req: NextRequest) {
     if (bookedSlotIds.length > 0) {
       query = query.not("sid", "in", `(${bookedSlotIds.join(",")})`);
     }
-    
 
     console.log("Formatted Booked Slot IDs:", `(${bookedSlotIds.join(",")})`);
- 
-    
 
     const { data: availableSlots, error: slotsError } = await query;
 

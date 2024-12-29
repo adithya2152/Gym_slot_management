@@ -25,7 +25,7 @@ export async function POST(req: Request) {
 
         console.log(userData)
         console.log(userError)  
-        if (userError || !userData?.length) {
+        if (userError ) {
             return new Response(
                 JSON.stringify({ message: "User not a Trainer" }),
                 { status: 404 }
@@ -39,6 +39,7 @@ export async function POST(req: Request) {
         });
 
         if (authError) {
+            console.error(authError);
             return new Response(
                 JSON.stringify({ message: authError.message || "Invalid credentials" }),
                 { status: 401 }

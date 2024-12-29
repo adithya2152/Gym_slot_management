@@ -1,0 +1,23 @@
+/* .Member_grid
+{
+    all:none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 20px;
+}
+
+.Member_grid .item1
+{
+    flex: 1 1 100%;
+    box-sizing: border-box;
+}
+
+.Member_grid .item2,
+.Member_grid .item3
+{
+    flex: 1 1 calc((100% / 2) - 20px);
+    box-sizing: border-box;
+    text-align: center;
+    height: 300px;
+} */
