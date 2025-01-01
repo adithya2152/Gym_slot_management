@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "../styles/global.css";
-import InstallButton from "@/components/installButton";
+// import InstallButton from "@/components/installButton";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -40,7 +40,7 @@ export default function RootLayout({
           <link rel="manifest" href="/manifest.json" />
         </head>
         <body className={`${geistSans.variable} ${geistMono.variable}`}>
-          <InstallButton />
+          {/* <InstallButton /> */}
           {children}
         </body>
       </html>
