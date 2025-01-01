@@ -1,11 +1,14 @@
-import type { NextConfig } from "next";
+ import withPWA from 'next-pwa';
 
-const nextConfig: NextConfig = {
-  env: {
-    NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
-    NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-  },
-  /* other config options here */
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  // Next.js config
+  reactStrictMode: false,
+  swcMinify: false,
 };
 
-export default nextConfig;
+export default withPWA({
+  // PWA plugin config
+  dest: 'public',
+  disable: process.env.NODE_ENV === 'development',
+})(nextConfig);
