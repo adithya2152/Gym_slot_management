@@ -16,6 +16,7 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "GymSync",
   description: "Created By ABC",
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({
