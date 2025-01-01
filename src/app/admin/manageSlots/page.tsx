@@ -6,7 +6,6 @@
   import "@/styles/manage_slots.css";
   import FormDialog from "@/components/formDialog";
   import {
-    Button,
     Dialog,
     DialogActions,  
     DialogContent,
@@ -257,10 +256,10 @@
         {loading && <div className="loader"></div>}
         <h1 className="page-title">Slots</h1>
         <div className="filter-section">
-          <Button className="add-slot-btn" onClick={handleDialogOpen}>
+          <button className="add-slot-btn" onClick={handleDialogOpen}>
             Add Slot
-          </Button>
-          <Button className="add-slot-btn" onClick={handleMultipleSlotOpen}>Add Multiple Slots</Button>
+          </button>
+          <button className="add-slot-btn" onClick={handleMultipleSlotOpen}>Add Multiple Slots</button>
           <select
             className="filter-select"
             value={filter}
@@ -323,12 +322,12 @@
                       <td>{slot.isBooked ? "Yes" : "No"}</td>
                       <td>{slot.booked}</td>
                       <td>
-                        <Button
+                        <button
                           className="delete-slot-btn"
                           onClick={() => handleConfirmDialogOpen(slot.sid)}
                         >
                           Delete Slot
-                        </Button>
+                        </button>
                       </td>
                     </tr>
                   ))}
@@ -351,10 +350,10 @@
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleConfirmDialogClose}>Cancel</Button>
-            <Button color="error" onClick={handleDeleteSlot}>
+            <button onClick={handleConfirmDialogClose}>Cancel</button>
+            <button color="error" onClick={handleDeleteSlot}>
             {loading ? "Deleting...":"Delete"}
-            </Button>
+            </button>
           </DialogActions>
         </Dialog>
 
@@ -473,12 +472,12 @@
           </DialogContent>
           
           <DialogActions>
-            <Button onClick={handleMultipleSlotClose}>Cancel</Button>
-            <Button
+            <button onClick={handleMultipleSlotClose}>Cancel</button>
+            <button
               onClick={handleMultislotEntry}
             >
               {loading?"Adding...":"Add"}
-            </Button>
+            </button>
           </DialogActions>
         </Dialog>
         </ThemeProvider>
