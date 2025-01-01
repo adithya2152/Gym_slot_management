@@ -16,13 +16,22 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
+interface Setting {
+  name: string;
+  path?: string; // path is optional for logout
+}
+
 const pages = [
   { name: "Manage Users", path: "/admin/manageUsers" },
   { name: "Manage Trainers", path: "/admin/manageTrainers" },
   { name: "Manage Slots", path: "/admin/manageSlots" },
   { name: "Exercises", path: "/exercises" },
 ];
-const settings = ["Profile", "Logout"];
+const settings: Setting[] = [
+  { name: "Profile", path: "/profile" },
+  { name: "Logout" },
+];
+
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -203,15 +212,17 @@ function ResponsiveAppBar() {
             >
               {settings.map((setting) => (
                 <MenuItem
-                  key={setting}
+                  key={setting.name} // Using setting.name as the key
                   onClick={() => {
                     handleCloseUserMenu();
-                    if (setting === "Logout") {
+                    if (setting.name === "Logout") {
                       handleLogout();
+                    } else if (setting.path) {
+                      router.push(setting.path); // For Profile path
                     }
                   }}
                 >
-                  <Typography sx={{ textAlign: "center" }}>{setting}</Typography>
+                  <Typography sx={{ textAlign: "center" }}>{setting.name}</Typography>
                 </MenuItem>
               ))}
             </Menu>

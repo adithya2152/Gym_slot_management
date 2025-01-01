@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import { toast, Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 export default function RestrictedPage() {
   const router = useRouter();
@@ -20,8 +21,26 @@ export default function RestrictedPage() {
   }, []);
 
   const handleRedirect = () => {
-    router.push("/"); // Navigate to the home page
+    router.push("/");  
   };
+
+  async function handleClearCookie ()
+  {
+    try {
+      const res = await axios.post("/api/auth/logout");
+      if (res.status === 200) {
+        console.log("User logged out successfully");
+        toast.success("Logged out successfully");
+        router.push("/"); // Redirect to login page
+      } else {
+        console.error("Failed to log out:", res.data.error);
+        toast.error("Failed to log out", res.data.error || res.data.message);
+      }
+    } catch (error) {
+      console.error("Error during logout:", error);
+      toast.error("Failed to log out");
+    }
+  }
 
   return (
     <div className="restricted-container">
@@ -34,6 +53,7 @@ export default function RestrictedPage() {
       <button onClick={handleRedirect} className="restricted-button">
         Go to Home
       </button>
+      <button onClick={handleClearCookie} className="restricted-button" >Clear Cache</button>
 
       <style jsx>{`
         .restricted-container {

@@ -17,13 +17,28 @@ import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-const pages = [
+// Define types for pages and settings
+interface Page {
+  name: string;
+  path: string;
+}
+
+interface Setting {
+  name: string;
+  path?: string; // path is optional for logout
+}
+
+const pages: Page[] = [
   { name: "Book Slots", path: "/member/bookSlots" },
-  { name: "Book Trainers", path: "#" }, 
-  { name : "Exercises", path:"/exercises"}
-//   { name: "Manage Slots", path: "/admin/manageSlots" }
+  { name: "Book Trainers", path: "#" },
+  { name: "Exercises", path: "/exercises" },
+  // { name: "Manage Slots", path: "/admin/manageSlots" }
 ];
-const settings = ["Profile", "Logout"];
+
+const settings: Setting[] = [
+  { name: "Profile", path: "/profile" },
+  { name: "Logout" },
+];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -90,12 +105,12 @@ function ResponsiveAppBar() {
         >
           {/* Logo */}
           <Image
-              src="/logo.png"  
-              alt="GymSync Logo"
-              width={40}  
-              height={40}
-              style={{ marginRight: "10px" }} 
-            />
+            src="/logo.png"
+            alt="GymSync Logo"
+            width={40}
+            height={40}
+            style={{ marginRight: "10px" }}
+          />
           <Typography
             variant="h6"
             noWrap
@@ -106,10 +121,9 @@ function ResponsiveAppBar() {
               fontWeight: 700,
               letterSpacing: ".3rem",
               color: "white",
-              textDecoration: "none", 
+              textDecoration: "none",
             }}
           >
-             
             GymSync
           </Typography>
 
@@ -212,15 +226,19 @@ function ResponsiveAppBar() {
             >
               {settings.map((setting) => (
                 <MenuItem
-                  key={setting}
+                  key={setting.name} // Using setting.name as the key
                   onClick={() => {
                     handleCloseUserMenu();
-                    if (setting === "Logout") {
+                    if (setting.name === "Logout") {
                       handleLogout();
+                    } else if (setting.path) {
+                      router.push(setting.path); // For Profile path
                     }
                   }}
                 >
-                  <Typography sx={{ textAlign: "center" }}>{setting}</Typography>
+                  <Typography sx={{ textAlign: "center" }}>
+                    {setting.name}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>

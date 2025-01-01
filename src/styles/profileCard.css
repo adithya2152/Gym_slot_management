@@ -1,0 +1,46 @@
+.profile-wrapper {
+    display: flex; /* Enables Flexbox for centering */
+    justify-content: center; /* Horizontally center */
+    align-items: center; /* Vertically center */
+    min-height: 100vh; /* Takes full viewport height */
+  }
+  .profile-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 400px;
+    width: 90%; /* Responsive width */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 5px 15px rgba(255, 255, 255, 0.1);
+    text-align: left; /* Align text to the left for professionalism */
+    backdrop-filter: blur(12px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .profile-card:hover {
+    transform: scale(1.05); /* Slight zoom effect */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 8px 20px rgba(255, 255, 255, 0.15);
+  }
+  
+  .profile-header {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #f39c12;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-align: center; /* Center only the header */
+  }
+  
+  .profile-card p {
+    margin: 10px 0;
+    font-size: 1.1rem;
+    color: #ecf0f1;
+    line-height: 1.6; /* Better spacing between lines */
+    display: flex; /* Align labels and content neatly */
+    justify-content: space-between; /* Spread label and value */
+  }
+  
+  .profile-card p strong {
+    color: #f39c12;
+    margin-right: 5px;
+  }
+  
