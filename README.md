@@ -36,7 +36,7 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 # Gym-management -->
 # Gym Booking System
-Check out this website online at: https://gym-slot-management-adithya2152s-projects.vercel.app/
+Check out this website online at: https://gym-slot-management.vercel.app//
 ## Project Overview
 This project is a Gym Booking System designed to manage user registrations, slot bookings, and fitness tracking efficiently. The database schema enforces constraints to ensure data consistency and uses triggers to manage booking limits and prevent conflicts. The system includes roles such as Trainers and Admins for better management of operations.
 
