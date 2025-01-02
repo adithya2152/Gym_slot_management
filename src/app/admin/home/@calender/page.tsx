@@ -1,4 +1,5 @@
 "use client";
+
 import Card from "@/components/dashCard";
 import { toast, Toaster } from "react-hot-toast";
 import Calendar from "react-calendar";
@@ -14,7 +15,7 @@ interface SLOTS {
   end_time: string;
 }
 
-export default function Calender() {
+export default function CalendarPage() {
   const [slots, setSlots] = useState<SLOTS[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -23,16 +24,15 @@ export default function Calender() {
       setLoading(true);
       try {
         const res = await axios.get("/admin/home/getSlots");
-
         if (res.status === 200) {
           setSlots(res.data);
         } else {
-          toast.error(res.data.message);
-          throw new Error(res.data.message);
+          toast.error(res.data.message || "Failed to fetch slots.");
         }
       } catch (error) {
         if (axios.isAxiosError(error)) {
           toast.error(error.response?.data?.message || "An error occurred");
+        } else {
           console.error(error);
         }
       } finally {
@@ -42,7 +42,7 @@ export default function Calender() {
     fetchData();
   }, []);
 
-  const getTitleClassName = ({ date }: { date: Date }) => {
+  const getTileClassName = ({ date }: { date: Date }) => {
     const formattedDate = date.toISOString().split("T")[0];
     const slot = slots.find((slot) => slot.date === formattedDate);
     return slot ? (slot.isBooked ? "booked-slot" : "free-slot") : "";
@@ -50,10 +50,10 @@ export default function Calender() {
 
   return (
     <Card>
-      <div className="calender">
+      <div className="calendar-container">
         {loading && <div className="loader"></div>}
-        <h2>Calender</h2>
-        <Calendar tileClassName={getTitleClassName} />
+        <h2>Calendar</h2>
+        <Calendar tileClassName={getTileClassName} />
         <Toaster />
       </div>
     </Card>

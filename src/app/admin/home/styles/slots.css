@@ -8,7 +8,7 @@
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     margin: 10px auto;
-    max-width: 400px;
+    width:70%;
   }
   
   .card:hover {
@@ -16,7 +16,7 @@
     box-shadow: 8px 8px 20px #121212, -8px -8px 20px #404040;
   }
   
-  .card h2 {
+  .card h2 {  
     font-size: 28px;
     font-weight: bold;
     margin-bottom: 15px;

@@ -44,3 +44,22 @@
     margin-right: 5px;
   }
   
+  .calculated-metrics {
+    margin-top: 15px; /* Space above the metrics */
+    padding-top: 10px; /* Space above the separator */
+    border-top: 1px solid rgba(255, 255, 255, 0.2); /* Separator line */
+  }
+  
+  .calculated-metrics p {
+    margin: 8px 0; /* Space between metrics */
+    font-size: 1.1rem; /* Slightly larger font */
+    color: #1abc9c; /* Highlighted green color for metrics */
+    line-height: 1.6; /* Good line spacing */
+    display: flex; /* Align labels and values neatly */
+    justify-content: space-between; /* Spread label and value */
+  }
+  
+  .calculated-metrics p strong {
+    color: #f39c12; /* Consistent highlight for labels */
+  }
+    

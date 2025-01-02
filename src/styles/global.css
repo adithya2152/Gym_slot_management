@@ -54,17 +54,24 @@ background-image: url("https://www.transparenttextures.com/patterns/diagmonds-li
 }
 
 .calendar-container {
-  padding: 20px;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  margin: 20px auto;
-  width: fit-content;
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 4px 4px 10px #141414, -4px -4px 10px #363636;
+    padding: 20px 30px;
+    font-family: "Poppins", sans-serif;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 10px auto;
+    width:50%;
+}
+.calendar-container:hover {
+  transform: scale(1.05);
+  box-shadow: 8px 8px 20px #121212, -8px -8px 20px #404040;
 }
 
 /* Calendar Header */
-.calender h2 {
+.calender-container h2 {
   text-align: center;
   font-size: 24px;
   color: #fff;

@@ -67,7 +67,7 @@ export async function middleware(req: NextRequest) {
 
     console.log("Extracted base path:", extractedPath);
 
-    let table = ""; // This will hold the table name for querying
+    let table = "";// This will hold the table name for querying
 
     // Check the extracted path to decide which user table to query
     if (extractedPath !== "/") {
@@ -123,6 +123,7 @@ export const config = {
     "/admin/:path*",   // Apply middleware to all paths starting with "/admin"
     "/",               // Apply middleware to the root "/"
     "/exercises",      // Allow access to exercises page
-    "/Adminlogin",     // Allow access to admin login page
+    "/Adminlogin",   
+    "/profile"  // Allow access to admin login page
   ], // Apply middleware to specific routes
 };
