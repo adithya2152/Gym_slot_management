@@ -1,0 +1,45 @@
+ 
+  .trainer-card {
+    width: 50%;
+    margin: 50px 50px;
+    padding: 20px;
+    background: rgba(50, 50, 50, 0.5);
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+  }
+  
+  .trainer-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    color: #ff9900; /* Accent color for title */
+    margin-bottom: 15px;
+  }
+  
+  .loading-text, .error-text, .no-trainer-text {
+    font-size: 16px;
+    text-align: center;
+    color: #eaeaea;
+  }
+  
+  .error-text {
+    color: red;
+  }
+  
+  .trainer-info p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin: 8px 0;
+  }
+  
+  .trainer-info strong {
+    color: #ff9900; /* Accent color for labels */
+  }
+  
+  .trainer-card:hover
+  {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+    transition: box-shadow 0.3s ease;
+    transform: translateY(-10px);
+
+  }

@@ -30,7 +30,7 @@ interface Setting {
 
 const pages: Page[] = [
   { name: "Book Slots", path: "/member/bookSlots" },
-  { name: "Book Trainers", path: "#" },
+  { name: "Book Trainers", path: "/member/bookTrainer" },
   { name: "Exercises", path: "/exercises" },
   // { name: "Manage Slots", path: "/admin/manageSlots" }
 ];
