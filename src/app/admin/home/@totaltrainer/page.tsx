@@ -25,7 +25,7 @@ export default function Member() {
   return (
     <Card>
       <div className="card">
-        <h2>Members Count</h2>
+        <h2>Trainers Count</h2>
         {error ? (
           <div className="stats"><p className="text-red-500">{error}</p></div>
         ) : memberCount !== null ? (
