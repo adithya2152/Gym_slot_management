@@ -124,6 +124,7 @@ export const config = {
     "/",               // Apply middleware to the root "/"
     "/exercises",      // Allow access to exercises page
     "/Adminlogin",   
-    "/profile"  // Allow access to admin login page
+    "/profile",  // Allow access to admin login page
+    "/api/:path*"
   ], // Apply middleware to specific routes
 };
